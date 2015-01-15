@@ -7,7 +7,10 @@ module.exports = function(grunt) {
         separator: ';'
       },
       dist: {
-        src: ['public/client/*.js'],
+        src: [
+          'public/client/*.js',
+          'public/lib/*.js'
+        ],
         dest: 'public/dist/built.js'
       }
     },
@@ -28,8 +31,10 @@ module.exports = function(grunt) {
     },
 
     uglify: {
-      files:{
-        'public/dist/built.min.js': ['public/dist/built.js']
+      my_target: {
+        files:{
+          'public/dist/built.js.min': ['public/dist/built.js']
+        }
       }
     },
 
@@ -104,6 +109,8 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
+    'concat',
+    'uglify'
   ]);
 
   grunt.registerTask('upload', function(n) {
@@ -115,8 +122,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('deploy', [
-    'concat',
-    'uglify'
     // add your deploy tasks here
   ]);
 
